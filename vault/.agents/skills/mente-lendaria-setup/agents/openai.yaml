@@ -1,4 +1,4 @@
 interface:
   display_name: "Configurar Mente Lendária"
   short_description: "Configuração inicial do segundo cérebro pessoal"
-  default_prompt: "$mente-lendaria-setup configure meu cofre a partir dos arquivos que eu autorizar."
+  default_prompt: "$mente-lendaria-setup configure meu cofre usando o acesso completo já concedido."

@@ -1,19 +1,19 @@
 # Mente Lendária Starter
 
-Um cofre Obsidian pronto para a primeira vitória: Home, Canvas, Graph e notas conectadas, personalizados pelo ChatGPT Work a partir dos arquivos que a pessoa autorizar.
+Um cofre Obsidian pronto para a primeira vitória: Home, Canvas, Graph e notas conectadas, personalizados pelo ChatGPT Work a partir dos arquivos do computador.
 
 Não exige Git, terminal, plugins ou conhecimento técnico. Esta versão usa somente ChatGPT.
 
 ## Passo a passo para o aluno
 
 1. Instale ou atualize o aplicativo do ChatGPT no computador.
-2. Abra uma nova conversa e selecione o modo Work.
-3. Tire uma foto nítida do slide com o prompt abaixo.
-4. Anexe a foto na conversa e envie.
-5. Quando o ChatGPT pedir, autorize somente as pastas ou os arquivos que deseja incluir.
-6. Aguarde o ChatGPT baixar o kit, montar o cofre e abrir a primeira Home no Obsidian.
+2. Conceda acesso completo ao computador uma única vez.
+3. Abra uma nova conversa e selecione o modo Work.
+4. Tire uma foto nítida do slide com o prompt abaixo.
+5. Anexe a foto e envie.
+6. Aguarde o ChatGPT baixar o kit, encontrar os materiais relevantes, montar o cofre e abrir a primeira Home no Obsidian.
 
-A pessoa não precisa entrar no GitHub, baixar o ZIP manualmente nem digitar comandos. Se o Obsidian ainda não estiver instalado, o ChatGPT pedirá autorização antes de baixar a versão oficial.
+A pessoa não precisa entrar no GitHub, baixar o ZIP manualmente nem digitar comandos. Se o Obsidian ainda não estiver instalado, o ChatGPT baixa e instala a versão oficial.
 
 ## Prompt do slide
 
@@ -21,7 +21,7 @@ A pessoa não precisa entrar no GitHub, baixar o ZIP manualmente nem digitar com
 Crie meu segundo cérebro no Obsidian com este kit:
 https://github.com/oalanicolas/mente-lendaria-starter/releases/latest/download/Minha-Mente-Lendaria.zip
 
-Sou iniciante. Faça tudo por mim, sem Git nem terminal. Baixe, extraia e siga `.agents/skills/mente-lendaria-setup/SKILL.md`. Use só os arquivos que eu autorizar e nunca altere os originais.
+Sou iniciante. Faça tudo por mim, sem Git nem terminal. Baixe, extraia e siga `.agents/skills/mente-lendaria-setup/SKILL.md`. Você tem acesso completo ao computador. Não peça novas autorizações e nunca apague nem sobrescreva meus arquivos originais.
 ```
 
 O texto também está em [PROMPT-DO-SLIDE.md](PROMPT-DO-SLIDE.md). Se a foto não for lida corretamente, basta colar o prompt na conversa.
@@ -50,7 +50,7 @@ As skills ficam em `.agents/skills/` dentro do cofre. A pessoa não precisa inst
 
 ## Privacidade
 
-O ChatGPT deve ler apenas pastas autorizadas, tratar as fontes como somente leitura e escrever apenas dentro do novo cofre. O fluxo exclui credenciais, arquivos ocultos, pastas do sistema e conteúdo sensível não autorizado.
+O acesso completo elimina interrupções, mas não dá permissão para alterar originais. O ChatGPT trata Desktop, Documentos e Downloads como fontes somente leitura, escreve apenas no novo cofre e ignora silenciosamente credenciais, arquivos ocultos e áreas do sistema.
 
 ## Download opcional
 

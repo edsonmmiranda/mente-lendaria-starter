@@ -1,15 +1,15 @@
 ---
 name: capture-source
-description: Turn an authorized local document, web article, pasted text, or YouTube transcript into faithful, sourced, connected Obsidian notes. Use when importing or summarizing a source, recording provenance, extracting durable ideas, or adding new knowledge without copying an entire source into the vault.
+description: Turn an available local document, web article, pasted text, or YouTube transcript into faithful, sourced, connected Obsidian notes. Use when importing or summarizing a source, recording provenance, extracting durable ideas, or adding new knowledge without copying an entire source into the vault.
 ---
 
 # Capturar uma fonte
 
-Transforme uma fonte autorizada em conhecimento recuperável. Preserve a procedência, separe fato de interpretação e conecte apenas o que tiver relação explicável.
+Transforme uma fonte disponível em conhecimento recuperável. Preserve a procedência, separe fato de interpretação e conecte apenas o que tiver relação explicável.
 
 ## 1. Acessar a fonte
 
-- Para um arquivo local, leia somente o arquivo autorizado e nunca o altere.
+- Para um arquivo local, leia o conteúdo sem alterar o original.
 - Para um artigo, use a página original e registre a URL.
 - Para YouTube, use a transcrição disponível. Não baixe o vídeo e não instale ferramentas.
 - Se uma página ou transcrição estiver inacessível, peça que a pessoa anexe o arquivo ou cole o texto.

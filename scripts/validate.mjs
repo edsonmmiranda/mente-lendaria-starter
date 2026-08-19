@@ -134,6 +134,7 @@ const packageJson = JSON.parse(fs.readFileSync(path.join(repoRoot, "package.json
 const manifest = JSON.parse(fs.readFileSync(path.join(vaultRoot, ".mente-lendaria", "manifest.json"), "utf8"));
 if (manifest.version !== packageJson.version) errors.push("Versões divergentes entre package.json e manifest.json");
 if (manifest.chatgpt_only !== true) errors.push("manifest.json deve declarar chatgpt_only como true");
+if (manifest.authorization_mode !== "single_full_access") errors.push("Modo de autorização divergente no manifest.json");
 if (JSON.stringify(manifest.skills) !== JSON.stringify(skillNames)) errors.push("Lista de skills divergente no manifest.json");
 
 if (errors.length > 0) {
