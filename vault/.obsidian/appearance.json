@@ -1,0 +1,10 @@
+{
+  "accentColor": "#2597d0",
+  "baseFontSize": 18,
+  "enabledCssSnippets": [
+    "mente-lendaria"
+  ],
+  "showViewHeader": true,
+  "theme": "obsidian"
+}
+

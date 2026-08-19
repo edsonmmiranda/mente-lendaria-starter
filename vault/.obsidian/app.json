@@ -1,0 +1,14 @@
+{
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "Anexos",
+  "defaultViewMode": "source",
+  "livePreview": true,
+  "newFileLocation": "root",
+  "newLinkFormat": "shortest",
+  "promptDelete": true,
+  "readableLineLength": true,
+  "showLineNumber": false,
+  "strictLineBreaks": false,
+  "useMarkdownLinks": false
+}
+

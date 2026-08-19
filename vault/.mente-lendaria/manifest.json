@@ -1,0 +1,12 @@
+{
+  "kit": "mente-lendaria-starter",
+  "version": "1.0.0",
+  "vault_name": "Minha Mente Lendária",
+  "instructions": ".mente-lendaria/INSTRUCOES-DA-IA.md",
+  "release": "https://github.com/oalanicolas/mente-lendaria-starter/releases/latest/download/Minha-Mente-Lendaria.zip",
+  "requires_git": false,
+  "community_plugins": false,
+  "minimum_personal_notes": 12,
+  "maximum_source_files_first_run": 30
+}
+

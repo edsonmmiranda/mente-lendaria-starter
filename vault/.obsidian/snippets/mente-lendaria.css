@@ -1,0 +1,29 @@
+:root {
+  --ml-ink: #151c26;
+  --ml-blue: #2597d0;
+  --ml-blue-soft: rgba(37, 151, 208, 0.12);
+  --ml-line: rgba(127, 127, 127, 0.22);
+}
+
+.markdown-preview-view h1,
+.markdown-source-view.mod-cm6 .cm-header-1 {
+  letter-spacing: -0.035em;
+}
+
+.markdown-preview-view .callout[data-callout="success"],
+.markdown-source-view.mod-cm6 .callout[data-callout="success"] {
+  --callout-color: 37, 151, 208;
+  background: linear-gradient(135deg, var(--ml-blue-soft), transparent);
+  border: 1px solid var(--ml-line);
+  border-radius: 14px;
+}
+
+.markdown-preview-view a.internal-link {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.workspace-leaf-content[data-type="markdown"] .view-content {
+  background-image: radial-gradient(circle at 85% 8%, var(--ml-blue-soft), transparent 24rem);
+}
+

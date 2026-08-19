@@ -1,0 +1,123 @@
+{
+  "nodes": [
+    {
+      "id": "home0001",
+      "type": "file",
+      "file": "00 - Comece Aqui.md",
+      "x": -210,
+      "y": -110,
+      "width": 420,
+      "height": 240
+    },
+    {
+      "id": "norte001",
+      "type": "file",
+      "file": "Meu Norte.md",
+      "x": -820,
+      "y": -420,
+      "width": 320,
+      "height": 200
+    },
+    {
+      "id": "projetos1",
+      "type": "file",
+      "file": "Projetos em Movimento.md",
+      "x": 500,
+      "y": -420,
+      "width": 320,
+      "height": 200
+    },
+    {
+      "id": "pessoas01",
+      "type": "file",
+      "file": "Pessoas e Conversas.md",
+      "x": 650,
+      "y": 180,
+      "width": 320,
+      "height": 200
+    },
+    {
+      "id": "ideias001",
+      "type": "file",
+      "file": "Ideias que me Perseguem.md",
+      "x": -160,
+      "y": 440,
+      "width": 320,
+      "height": 200
+    },
+    {
+      "id": "pergunta1",
+      "type": "file",
+      "file": "Perguntas que me Movem.md",
+      "x": -970,
+      "y": 180,
+      "width": 320,
+      "height": 200
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge0001",
+      "fromNode": "home0001",
+      "fromSide": "left",
+      "toNode": "norte001",
+      "toSide": "right"
+    },
+    {
+      "id": "edge0002",
+      "fromNode": "home0001",
+      "fromSide": "right",
+      "toNode": "projetos1",
+      "toSide": "left"
+    },
+    {
+      "id": "edge0003",
+      "fromNode": "home0001",
+      "fromSide": "right",
+      "toNode": "pessoas01",
+      "toSide": "left"
+    },
+    {
+      "id": "edge0004",
+      "fromNode": "home0001",
+      "fromSide": "bottom",
+      "toNode": "ideias001",
+      "toSide": "top"
+    },
+    {
+      "id": "edge0005",
+      "fromNode": "home0001",
+      "fromSide": "left",
+      "toNode": "pergunta1",
+      "toSide": "right"
+    },
+    {
+      "id": "edge0006",
+      "fromNode": "norte001",
+      "fromSide": "bottom",
+      "toNode": "pergunta1",
+      "toSide": "top"
+    },
+    {
+      "id": "edge0007",
+      "fromNode": "projetos1",
+      "fromSide": "bottom",
+      "toNode": "pessoas01",
+      "toSide": "top"
+    },
+    {
+      "id": "edge0008",
+      "fromNode": "pessoas01",
+      "fromSide": "left",
+      "toNode": "ideias001",
+      "toSide": "right"
+    },
+    {
+      "id": "edge0009",
+      "fromNode": "pergunta1",
+      "fromSide": "right",
+      "toNode": "ideias001",
+      "toSide": "left"
+    }
+  ]
+}

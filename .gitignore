@@ -1,0 +1,7 @@
+.DS_Store
+dist/
+*.sync-conflict-*
+vault/.obsidian/workspace.json
+vault/.obsidian/workspace-mobile.json
+vault/.obsidian/cache/
+
