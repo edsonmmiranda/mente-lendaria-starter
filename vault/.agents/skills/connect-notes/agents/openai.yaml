@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conectar Notas"
+  short_description: "Encontre e explique conexões reais entre as notas"
+  default_prompt: "$connect-notes encontre conexões reais e repare notas isoladas no meu cofre."

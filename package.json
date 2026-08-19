@@ -1,10 +1,9 @@
 {
   "name": "mente-lendaria-starter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Cofre Obsidian inicial para criar um segundo cérebro com ajuda de IA",
   "scripts": {
     "validate": "node scripts/validate.mjs"
   }
 }
-

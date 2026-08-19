@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capturar Fonte"
+  short_description: "Transforme fontes em notas confiáveis e conectadas"
+  default_prompt: "$capture-source transforme esta fonte em uma nota conectada e fiel."
