@@ -1,0 +1,4 @@
+interface:
+  display_name: "Criar Mapa de Conteúdo"
+  short_description: "Crie mapas úteis sem excesso de pastas ou links"
+  default_prompt: "$build-moc organize este tema em um mapa de conteúdo útil e conectado."

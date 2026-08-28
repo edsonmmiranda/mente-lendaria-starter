@@ -1,12 +1,12 @@
-# Prompt mínimo do slide
+# Prompt universal do slide
 
 ```text
 Crie meu segundo cérebro no Obsidian com este kit:
-https://github.com/oalanicolas/mente-lendaria-starter/releases/latest/download/Minha-Mente-Lendaria.zip
+https://github.com/oalanicolas/segundo-cerebro-kit/releases/latest/download/Segundo-Cerebro-Kit.zip
 
-Sou iniciante. Faça tudo por mim, sem Git nem terminal. Baixe, extraia e siga `.agents/skills/mente-lendaria-setup/SKILL.md`. Você tem acesso completo ao computador. Não peça novas autorizações e nunca apague nem sobrescreva meus arquivos originais.
+Sou iniciante. Faça tudo por mim, sem Git nem terminal. Baixe, extraia e siga `.agents/skills/segundo-cerebro-setup/SKILL.md`. Use o acesso completo ao computador já concedido. Não peça novas autorizações e nunca apague nem sobrescreva meus arquivos originais.
 ```
 
 ## Instrução falada
 
-Conceda acesso completo uma única vez. Depois, abra uma nova conversa no ChatGPT para computador, selecione Work, anexe a foto deste slide e envie.
+Abra no computador o agente de IA que você já usa, permita o acesso necessário aos arquivos, anexe a foto deste slide e envie.

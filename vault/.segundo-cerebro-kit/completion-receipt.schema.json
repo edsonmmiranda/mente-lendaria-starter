@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "status": "complete",
+  "verification_mode": "agent-native-file-tools",
+  "vault_path": "CAMINHO_ABSOLUTO_CONFIRMADO",
+  "completed_at": null,
+  "state_status": "complete",
+  "sources_inventoried": 0,
+  "sources_read": 0,
+  "notes": 0,
+  "links": 0,
+  "broken_links": 0,
+  "orphan_notes": 0,
+  "open_status": "complete_ou_skipped",
+  "verified_outputs": [
+    "00 - Comece Aqui.md",
+    "Mapa Inicial.canvas"
+  ]
+}

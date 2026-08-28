@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "plugins": [
+    {
+      "id": "codex-panel",
+      "name": "Codex Panel",
+      "version": "5.6.0",
+      "enabled": true,
+      "desktop_only": true,
+      "minimum_obsidian_version": "1.12.0",
+      "source_repository": "https://github.com/murashit/codex-panel",
+      "release_url": "https://github.com/murashit/codex-panel/releases/tag/5.6.0",
+      "license": "Apache-2.0",
+      "release_assets_verified_with": "GitHub artifact attestations",
+      "authentication": "existing local Codex session",
+      "credentials_bundled": false,
+      "files": {
+        "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "NOTICE": "737fa38c37150bc4e814c598cd01eb0f82244ff639b489032c05a948cea7943c",
+        "main.js": "427698b8496d1f13e37950e9a0ff28bc75e1eab7a04d9bc6b559182b1a1404dd",
+        "manifest.json": "28a56cd668132590de9cdde70972b2187843931970827f0f6c428e6b075f1c56",
+        "styles.css": "8a63fa10b0ab252294f104d796e32b1b0f4d2faab1441355e099b3ac7e08c72d"
+      }
+    }
+  ]
+}

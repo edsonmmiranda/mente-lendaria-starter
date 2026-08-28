@@ -1,30 +1,80 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
 const vaultRoot = path.join(repoRoot, "vault");
+const canonicalSkillsRoot = path.join(vaultRoot, ".agents", "skills");
+const claudeSkillsRoot = path.join(vaultRoot, ".claude", "skills");
 const skillNames = [
-  "mente-lendaria-setup",
+  "segundo-cerebro-setup",
   "capture-source",
   "connect-notes",
   "build-moc",
   "review-vault"
 ];
+const requiredCapabilities = [
+  "download_or_receive_public_archive",
+  "extract_or_open_archive",
+  "list_local_file_metadata",
+  "copy_folder_without_overwrite",
+  "read_selected_local_files",
+  "write_and_verify_vault_files"
+];
+const operationalMarkdown = new Set(["AGENTS.md", "CLAUDE.md", "INICIE-AQUI-IA.md"]);
+const bundledPlugin = {
+  id: "codex-panel",
+  version: "5.6.0",
+  relativeRoot: ".obsidian/plugins/codex-panel",
+  files: {
+    LICENSE: "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    NOTICE: "737fa38c37150bc4e814c598cd01eb0f82244ff639b489032c05a948cea7943c",
+    "main.js": "427698b8496d1f13e37950e9a0ff28bc75e1eab7a04d9bc6b559182b1a1404dd",
+    "manifest.json": "28a56cd668132590de9cdde70972b2187843931970827f0f6c428e6b075f1c56",
+    "styles.css": "8a63fa10b0ab252294f104d796e32b1b0f4d2faab1441355e099b3ac7e08c72d"
+  }
+};
+const expectedRuntimeDependencies = [
+  {
+    id: "codex-cli",
+    required_for: "codex-panel",
+    expected_preinstalled: true,
+    credentials_bundled: false
+  }
+];
+const expectedCommunityPlugins = [
+  {
+    id: "codex-panel",
+    version: "5.6.0",
+    enabled: true,
+    desktop_only: true,
+    metadata: ".segundo-cerebro-kit/bundled-plugins.json"
+  }
+];
 
 const requiredFiles = [
-  ".mente-lendaria/INSTRUCOES-DA-IA.md",
-  ".mente-lendaria/manifest.json",
+  "AGENTS.md",
+  "CLAUDE.md",
+  "INICIE-AQUI-IA.md",
+  ".segundo-cerebro-kit/INSTRUCOES-DA-IA.md",
+  ".segundo-cerebro-kit/completion-receipt.schema.json",
+  ".segundo-cerebro-kit/bundled-plugins.json",
+  ".segundo-cerebro-kit/manifest.json",
+  ".segundo-cerebro-kit/run-state.json",
   ".obsidian/app.json",
   ".obsidian/appearance.json",
   ".obsidian/core-plugins.json",
+  ".obsidian/community-plugins.json",
   ".obsidian/graph.json",
-  ".obsidian/snippets/mente-lendaria.css",
+  ".obsidian/snippets/segundo-cerebro-kit.css",
+  ...Object.keys(bundledPlugin.files).map((file) => `${bundledPlugin.relativeRoot}/${file}`),
   ...skillNames.flatMap((skill) => [
     `.agents/skills/${skill}/SKILL.md`,
-    `.agents/skills/${skill}/agents/openai.yaml`
+    `.agents/skills/${skill}/agents/openai.yaml`,
+    `.claude/skills/${skill}/SKILL.md`,
+    `.claude/skills/${skill}/agents/openai.yaml`
   ]),
-  ".agents/skills/review-vault/scripts/vault_health.py",
   "00 - Comece Aqui.md",
   "Ideias que me Perseguem.md",
   "Mapa Inicial.canvas",
@@ -49,13 +99,58 @@ function walk(directory) {
   });
 }
 
+function relativeVaultPath(file) {
+  return path.relative(vaultRoot, file);
+}
+
 function isHiddenVaultPath(file) {
-  return path.relative(vaultRoot, file).split(path.sep).some((part) => part.startsWith("."));
+  return relativeVaultPath(file).split(path.sep).some((part) => part.startsWith("."));
+}
+
+function relativeFiles(root) {
+  if (!fs.existsSync(root)) return [];
+  return walk(root)
+    .map((file) => path.relative(root, file))
+    .filter((relative) => !relative.split(path.sep).some((part) => part === "__pycache__" || part === ".DS_Store"))
+    .sort();
+}
+
+const canonicalFiles = relativeFiles(canonicalSkillsRoot);
+const claudeFiles = relativeFiles(claudeSkillsRoot);
+if (JSON.stringify(canonicalFiles) !== JSON.stringify(claudeFiles)) {
+  errors.push("Projeção .claude/skills diverge da lista canônica em .agents/skills");
+}
+for (const relative of canonicalFiles) {
+  const projection = path.join(claudeSkillsRoot, relative);
+  if (!fs.existsSync(projection)) continue;
+  if (!fs.readFileSync(path.join(canonicalSkillsRoot, relative)).equals(fs.readFileSync(projection))) {
+    errors.push(`Projeção Claude divergente: ${relative}`);
+  }
 }
 
 const files = walk(vaultRoot);
+const forbiddenRuntimeExtensions = new Set([".py", ".js", ".mjs", ".cjs", ".sh", ".bash", ".zsh", ".ps1", ".bat", ".cmd", ".exe"]);
+const allowedRuntimeFiles = new Set([path.normalize(`${bundledPlugin.relativeRoot}/main.js`)]);
+for (const file of files) {
+  if (
+    forbiddenRuntimeExtensions.has(path.extname(file).toLowerCase()) &&
+    !allowedRuntimeFiles.has(path.normalize(relativeVaultPath(file)))
+  ) {
+    errors.push(`Executável não permitido no cofre zero-runtime: ${relativeVaultPath(file)}`);
+  }
+}
+
+for (const generatedFile of [".segundo-cerebro-kit/completion-receipt.json", ".segundo-cerebro-kit/inventory.json"]) {
+  if (fs.existsSync(path.join(vaultRoot, generatedFile))) {
+    errors.push(`Artefato de execução não pode existir no kit inicial: ${generatedFile}`);
+  }
+}
+
 const markdownFiles = files.filter((file) => file.endsWith(".md"));
 const visibleMarkdownFiles = markdownFiles.filter((file) => !isHiddenVaultPath(file));
+const seedMarkdownFiles = visibleMarkdownFiles.filter(
+  (file) => !operationalMarkdown.has(relativeVaultPath(file))
+);
 const linkableFiles = files.filter(
   (file) => !isHiddenVaultPath(file) && (file.endsWith(".md") || file.endsWith(".canvas"))
 );
@@ -71,7 +166,53 @@ for (const file of files.filter((candidate) => candidate.endsWith(".json") || ca
   }
 }
 
-for (const file of visibleMarkdownFiles) {
+const communityPlugins = JSON.parse(
+  fs.readFileSync(path.join(vaultRoot, ".obsidian", "community-plugins.json"), "utf8")
+);
+if (JSON.stringify(communityPlugins) !== JSON.stringify([bundledPlugin.id])) {
+  errors.push("Codex Panel não está habilitado como único plugin comunitário do kit");
+}
+
+const pluginRoot = path.join(vaultRoot, bundledPlugin.relativeRoot);
+const expectedPluginFiles = Object.keys(bundledPlugin.files).sort();
+const actualPluginFiles = relativeFiles(pluginRoot);
+if (JSON.stringify(actualPluginFiles) !== JSON.stringify(expectedPluginFiles)) {
+  errors.push("Arquivos distribuídos do Codex Panel divergem do conjunto aprovado");
+}
+for (const [file, expectedHash] of Object.entries(bundledPlugin.files)) {
+  const pluginFile = path.join(pluginRoot, file);
+  if (!fs.existsSync(pluginFile)) continue;
+  const actualHash = crypto.createHash("sha256").update(fs.readFileSync(pluginFile)).digest("hex");
+  if (actualHash !== expectedHash) errors.push(`Checksum divergente no Codex Panel: ${file}`);
+}
+
+const pluginManifest = JSON.parse(fs.readFileSync(path.join(pluginRoot, "manifest.json"), "utf8"));
+if (pluginManifest.id !== bundledPlugin.id || pluginManifest.version !== bundledPlugin.version) {
+  errors.push("Manifesto do Codex Panel diverge da versão aprovada");
+}
+if (pluginManifest.minAppVersion !== "1.12.0" || pluginManifest.isDesktopOnly !== true) {
+  errors.push("Compatibilidade declarada do Codex Panel está incorreta");
+}
+
+const bundledPluginsMetadata = JSON.parse(
+  fs.readFileSync(path.join(vaultRoot, ".segundo-cerebro-kit", "bundled-plugins.json"), "utf8")
+);
+const bundledPluginMetadata = bundledPluginsMetadata.plugins?.find((plugin) => plugin.id === bundledPlugin.id);
+if (bundledPluginsMetadata.schema_version !== 1 || !bundledPluginMetadata) {
+  errors.push("Metadados do plugin comunitário ausentes ou inválidos");
+} else {
+  if (bundledPluginMetadata.version !== bundledPlugin.version || bundledPluginMetadata.enabled !== true) {
+    errors.push("Versão ou ativação divergente nos metadados do Codex Panel");
+  }
+  if (bundledPluginMetadata.credentials_bundled !== false) {
+    errors.push("Metadados do Codex Panel devem declarar ausência de credenciais");
+  }
+  if (JSON.stringify(bundledPluginMetadata.files) !== JSON.stringify(bundledPlugin.files)) {
+    errors.push("Checksums registrados do Codex Panel divergem da versão aprovada");
+  }
+}
+
+for (const file of seedMarkdownFiles) {
   const contents = fs.readFileSync(file, "utf8");
   const links = [...contents.matchAll(/\[\[([^\]|#]+)(?:#[^\]|]+)?(?:\|[^\]]+)?\]\]/g)]
     .map((match) => match[1].trim().normalize("NFC"));
@@ -98,8 +239,8 @@ if (fs.existsSync(canvasPath)) {
 }
 
 for (const skill of skillNames) {
-  const skillPath = path.join(vaultRoot, ".agents", "skills", skill, "SKILL.md");
-  const metadataPath = path.join(vaultRoot, ".agents", "skills", skill, "agents", "openai.yaml");
+  const skillPath = path.join(canonicalSkillsRoot, skill, "SKILL.md");
+  const metadataPath = path.join(canonicalSkillsRoot, skill, "agents", "openai.yaml");
   if (!fs.existsSync(skillPath) || !fs.existsSync(metadataPath)) continue;
 
   const skillText = fs.readFileSync(skillPath, "utf8");
@@ -123,19 +264,82 @@ for (const file of markdownFiles) {
   }
 }
 
-for (const relativePath of ["README.md", "PROMPT-DO-SLIDE.md"]) {
-  const contents = fs.readFileSync(path.join(repoRoot, relativePath), "utf8");
-  if (/claude|cowork|grok|gemini/i.test(contents)) {
-    errors.push(`Referência a outro produto encontrada em ${relativePath}`);
-  }
+const promptText = fs.readFileSync(path.join(repoRoot, "PROMPT-DO-SLIDE.md"), "utf8");
+if (/chatgpt|claude|codex|grok|gemini/i.test(promptText)) {
+  errors.push("PROMPT-DO-SLIDE.md deve permanecer independente de fornecedor");
+}
+if (!promptText.includes(".agents/skills/segundo-cerebro-setup/SKILL.md")) {
+  errors.push("PROMPT-DO-SLIDE.md não aponta para a skill de configuração");
+}
+if (!/sou iniciante/i.test(promptText) || !/sem Git nem terminal/i.test(promptText)) {
+  errors.push("PROMPT-DO-SLIDE.md não declara o cenário iniciante sem Git nem terminal");
+}
+if (!/acesso completo ao computador já concedido/i.test(promptText)) {
+  errors.push("PROMPT-DO-SLIDE.md não declara o acesso ao computador já concedido");
+}
+if (!/nunca apague nem sobrescreva meus arquivos originais/i.test(promptText)) {
+  errors.push("PROMPT-DO-SLIDE.md não protege os arquivos originais");
 }
 
 const packageJson = JSON.parse(fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"));
-const manifest = JSON.parse(fs.readFileSync(path.join(vaultRoot, ".mente-lendaria", "manifest.json"), "utf8"));
+const manifest = JSON.parse(fs.readFileSync(path.join(vaultRoot, ".segundo-cerebro-kit", "manifest.json"), "utf8"));
 if (manifest.version !== packageJson.version) errors.push("Versões divergentes entre package.json e manifest.json");
-if (manifest.chatgpt_only !== true) errors.push("manifest.json deve declarar chatgpt_only como true");
-if (manifest.authorization_mode !== "single_full_access") errors.push("Modo de autorização divergente no manifest.json");
+if (packageJson.name !== "segundo-cerebro-kit") errors.push("Nome técnico divergente no package.json");
+if (manifest.kit !== "segundo-cerebro-kit") errors.push("Identidade técnica divergente no manifest.json");
+if (manifest.vault_name !== "meu-segundo-cerebro") errors.push("Nome público do cofre divergente no manifest.json");
+if (manifest.release !== "https://github.com/oalanicolas/segundo-cerebro-kit/releases/latest/download/Segundo-Cerebro-Kit.zip") {
+  errors.push("URL da release divergente no manifest.json");
+}
+if (manifest.provider_agnostic !== true) errors.push("manifest.json deve declarar provider_agnostic como true");
+if (Object.hasOwn(manifest, "chatgpt_only")) errors.push("manifest.json não pode conter chatgpt_only");
+if (JSON.stringify(manifest.runtime_dependencies) !== JSON.stringify(expectedRuntimeDependencies)) {
+  errors.push("Dependência local do Codex Panel divergente no manifest.json");
+}
+for (const field of ["requires_python", "requires_node", "requires_git", "requires_shell", "requires_package_manager"]) {
+  if (manifest[field] !== false) errors.push(`manifest.json deve declarar ${field} como false`);
+}
+if (manifest.universal_instructions !== "INICIE-AQUI-IA.md") errors.push("Entrada universal divergente no manifest.json");
+if (manifest.canonical_skills !== ".agents/skills") errors.push("Fonte canônica de skills divergente");
+if (JSON.stringify(manifest.skill_projections) !== JSON.stringify([".claude/skills"])) {
+  errors.push("Projeções de skills divergentes no manifest.json");
+}
+if (manifest.requires_gui_control !== false) errors.push("Controle visual deve permanecer opcional");
+if (JSON.stringify(manifest.community_plugins) !== JSON.stringify(expectedCommunityPlugins)) {
+  errors.push("Plugin comunitário divergente no manifest.json");
+}
+if (JSON.stringify(manifest.required_capabilities) !== JSON.stringify(requiredCapabilities)) {
+  errors.push("Capacidades mínimas divergentes no manifest.json");
+}
 if (JSON.stringify(manifest.skills) !== JSON.stringify(skillNames)) errors.push("Lista de skills divergente no manifest.json");
+if (manifest.maximum_source_files_first_run > 12) errors.push("Primeira execução não pode selecionar mais de 12 fontes");
+if (manifest.minimum_personal_notes > manifest.maximum_personal_notes_first_run) {
+  errors.push("Faixa de notas pessoais inválida");
+}
+
+const state = JSON.parse(fs.readFileSync(path.join(vaultRoot, ".segundo-cerebro-kit", "run-state.json"), "utf8"));
+const expectedPhases = ["prepared", "inventory", "capture", "connections", "maps", "interface", "validation", "open"];
+if (state.schema_version !== 2 || state.status !== "not_started" || state.vault_path !== "") {
+  errors.push("run-state.json inicial inválido");
+}
+if (JSON.stringify(Object.keys(state.phases ?? {})) !== JSON.stringify(expectedPhases)) {
+  errors.push("Fases divergentes em run-state.json");
+}
+for (const phase of expectedPhases) {
+  if (state.phases?.[phase]?.status !== "pending") errors.push(`Fase inicial não pendente: ${phase}`);
+}
+
+const receiptSchema = JSON.parse(
+  fs.readFileSync(path.join(vaultRoot, ".segundo-cerebro-kit", "completion-receipt.schema.json"), "utf8")
+);
+if (receiptSchema.schema_version !== 2 || receiptSchema.status !== "complete") {
+  errors.push("Schema do recibo final inválido");
+}
+if (receiptSchema.verification_mode !== "agent-native-file-tools") {
+  errors.push("Schema do recibo não declara validação por ferramentas nativas");
+}
+if (receiptSchema.completed_at !== null) {
+  errors.push("Schema do recibo deve evitar timestamp inventado por padrão");
+}
 
 if (errors.length > 0) {
   console.error(errors.join("\n"));
@@ -143,5 +347,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Validação concluída: ${requiredFiles.length} arquivos obrigatórios, ${visibleMarkdownFiles.length} notas visíveis, ${skillNames.length} skills e Canvas íntegro.`
+  `Validação concluída: ${requiredFiles.length} arquivos obrigatórios, ${seedMarkdownFiles.length} notas-semente, ${skillNames.length} skills, Codex Panel ${bundledPlugin.version}, projeção Claude e Canvas íntegros.`
 );

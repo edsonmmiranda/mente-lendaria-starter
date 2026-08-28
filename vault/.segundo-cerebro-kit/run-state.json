@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "status": "not_started",
+  "vault_path": "",
+  "created_at": null,
+  "updated_at": null,
+  "phases": {
+    "prepared": { "status": "pending", "evidence": "", "updated_at": null },
+    "inventory": { "status": "pending", "evidence": "", "updated_at": null },
+    "capture": { "status": "pending", "evidence": "", "updated_at": null },
+    "connections": { "status": "pending", "evidence": "", "updated_at": null },
+    "maps": { "status": "pending", "evidence": "", "updated_at": null },
+    "interface": { "status": "pending", "evidence": "", "updated_at": null },
+    "validation": { "status": "pending", "evidence": "", "updated_at": null },
+    "open": { "status": "pending", "evidence": "", "updated_at": null }
+  }
+}

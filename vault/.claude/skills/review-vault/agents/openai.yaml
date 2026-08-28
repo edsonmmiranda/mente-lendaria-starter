@@ -1,0 +1,4 @@
+interface:
+  display_name: "Revisar o Cofre"
+  short_description: "Revise a saúde do cofre com segurança e clareza"
+  default_prompt: "$review-vault revise a saúde do meu cofre e proponha melhorias seguras."

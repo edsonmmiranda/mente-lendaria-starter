@@ -6,7 +6,7 @@ aliases:
   - Início
 ---
 
-# Minha Mente Lendária
+# Meu Segundo Cérebro
 
 > [!success] Seu segundo cérebro começou
 > Este espaço será preenchido com ideias, projetos, pessoas e perguntas que já fazem parte da sua vida.
@@ -27,6 +27,12 @@ aliases:
 2. Abra uma das notas conectadas ao seu trabalho atual.
 3. Acrescente uma frase sua e conecte essa nota a outra.
 
+## Continue com o Codex
+
+O Codex já está disponível na barra lateral pelo Codex Panel. Abra o ícone do painel e use `@active` quando quiser conversar sobre a nota atual ou pedir uma alteração com revisão antes de aplicar.
+
+Na primeira abertura, o Obsidian pode pedir sua confirmação para executar o plugin comunitário que já acompanha este cofre.
+
 ## O que apareceu nos seus arquivos
 
 Esta seção será personalizada pela IA após analisar apenas os arquivos que você autorizar.
@@ -36,4 +42,3 @@ Esta seção será personalizada pela IA após analisar apenas os arquivos que v
 - Escolha uma nota que importa hoje.
 - Escreva o que você pensa sobre ela.
 - Procure uma conexão com [[Ideias que me Perseguem]] ou [[Projetos em Movimento]].
-

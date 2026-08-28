@@ -1,0 +1,4 @@
+interface:
+  display_name: "Configurar segundo cérebro"
+  short_description: "Configuração inicial do segundo cérebro pessoal"
+  default_prompt: "$segundo-cerebro-setup configure meu cofre usando o acesso completo já concedido."

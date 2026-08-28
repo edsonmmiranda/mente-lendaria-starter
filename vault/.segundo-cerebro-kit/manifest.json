@@ -1,0 +1,62 @@
+{
+  "kit": "segundo-cerebro-kit",
+  "version": "1.3.0",
+  "vault_name": "meu-segundo-cerebro",
+  "universal_instructions": "INICIE-AQUI-IA.md",
+  "instructions": ".agents/skills/segundo-cerebro-setup/SKILL.md",
+  "compatibility_instructions": ".segundo-cerebro-kit/INSTRUCOES-DA-IA.md",
+  "state_file": ".segundo-cerebro-kit/run-state.json",
+  "receipt_schema": ".segundo-cerebro-kit/completion-receipt.schema.json",
+  "release": "https://github.com/oalanicolas/segundo-cerebro-kit/releases/latest/download/Segundo-Cerebro-Kit.zip",
+  "provider_agnostic": true,
+  "runtime_dependencies": [
+    {
+      "id": "codex-cli",
+      "required_for": "codex-panel",
+      "expected_preinstalled": true,
+      "credentials_bundled": false
+    }
+  ],
+  "requires_python": false,
+  "requires_node": false,
+  "requires_git": false,
+  "requires_shell": false,
+  "requires_package_manager": false,
+  "requires_gui_control": false,
+  "community_plugins": [
+    {
+      "id": "codex-panel",
+      "version": "5.6.0",
+      "enabled": true,
+      "desktop_only": true,
+      "metadata": ".segundo-cerebro-kit/bundled-plugins.json"
+    }
+  ],
+  "canonical_skills": ".agents/skills",
+  "skill_projections": [
+    ".claude/skills"
+  ],
+  "required_capabilities": [
+    "download_or_receive_public_archive",
+    "extract_or_open_archive",
+    "list_local_file_metadata",
+    "copy_folder_without_overwrite",
+    "read_selected_local_files",
+    "write_and_verify_vault_files"
+  ],
+  "optional_capabilities": [
+    "computer_control",
+    "application_install"
+  ],
+  "skills": [
+    "segundo-cerebro-setup",
+    "capture-source",
+    "connect-notes",
+    "build-moc",
+    "review-vault"
+  ],
+  "minimum_personal_notes": 0,
+  "target_personal_notes": 8,
+  "maximum_personal_notes_first_run": 12,
+  "maximum_source_files_first_run": 12
+}
