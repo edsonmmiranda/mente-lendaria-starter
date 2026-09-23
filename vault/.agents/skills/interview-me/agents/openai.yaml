@@ -1,0 +1,4 @@
+interface:
+  display_name: "Entrevista do Norte"
+  short_description: "Defina com a IA o que merece entrar no seu cérebro"
+  default_prompt: "$interview-me revise comigo o meu Norte, uma pergunta por vez."

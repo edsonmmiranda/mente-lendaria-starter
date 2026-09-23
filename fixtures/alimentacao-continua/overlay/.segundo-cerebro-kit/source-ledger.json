@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "Fontes/Reunioes/2026-08-10 Falha da bomba B-12.md",
+      "linhas": 13,
+      "disposicao": "nova",
+      "motivo": "Falha de equipamento rotativo da linha 2.",
+      "notas": ["Bomba B-12.md"],
+      "alerta": null,
+      "processado_em": "2026-09-01"
+    },
+    {
+      "path": "Fontes/Readwise/Manual de Confiabilidade.md",
+      "linhas": 13,
+      "disposicao": "nova",
+      "motivo": "Leitura sobre confiabilidade, prevista no Norte.",
+      "notas": ["Manutenção Centrada em Confiabilidade.md"],
+      "alerta": null,
+      "processado_em": "2026-09-01"
+    }
+  ]
+}

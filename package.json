@@ -8,6 +8,9 @@
     "sync:skills:check": "node scripts/sync-skills.mjs --check",
     "validate": "node scripts/validate.mjs",
     "test": "node scripts/test-portability.mjs",
-    "check": "npm run sync:skills:check && npm run validate && npm test"
+    "check": "npm run sync:skills:check && npm run validate && npm test && npm run test:maintenance && npm run test:tasks",
+    "test:maintenance": "node scripts/test-maintenance-check.mjs",
+    "test:tasks": "node scripts/test-task-checks.mjs",
+    "bench": "node scripts/bench-agent.mjs"
   }
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Calibrar a Minha Voz"
+  short_description: "Transforme seus textos em regras de voz testáveis"
+  default_prompt: "$calibrate-voice monte o cartão da minha voz com os meus textos aprovados."

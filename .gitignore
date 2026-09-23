@@ -6,3 +6,4 @@ dist/
 vault/.obsidian/workspace.json
 vault/.obsidian/workspace-mobile.json
 vault/.obsidian/cache/
+bench-results/

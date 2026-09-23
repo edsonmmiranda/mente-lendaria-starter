@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manter o Segundo Cérebro"
+  short_description: "Processe o que chegou em Fontes com o seu critério"
+  default_prompt: "$maintain-vault rode a manutenção do meu segundo cérebro."

@@ -10,8 +10,8 @@ Faça uma revisão segura e orientada a decisões. Se não conseguir listar e le
 ## 1. Medir sem alterar
 
 1. Liste todos os arquivos visíveis do cofre.
-2. Considere como notas apenas arquivos `.md`, excluindo `AGENTS.md`, `CLAUDE.md` e `INICIE-AQUI-IA.md`.
-3. Considere como destinos possíveis as notas e os arquivos `.canvas` visíveis.
+2. Considere como notas apenas arquivos `.md`, excluindo `AGENTS.md`, `CLAUDE.md`, `INICIE-AQUI-IA.md` e tudo dentro de `Fontes/` exceto `Fontes/LEIA-ME.md`. Fontes brutas são evidência, não notas.
+3. Considere como destinos possíveis as notas, os arquivos dentro de `Fontes/` e os arquivos `.canvas` visíveis.
 4. Em cada nota, extraia todo texto entre `[[` e `]]`.
 5. Para resolver um destino, remova primeiro o alias após `|`, a âncora após `#` e a extensão `.md`.
 6. Se houver `/`, resolva pelo caminho relativo exato. Sem `/`, resolva por nome de arquivo sem extensão somente quando existir um único correspondente.

@@ -1,6 +1,6 @@
 # Meu Segundo Cérebro
 
-Leia `AGENTS.md` e `INICIE-AQUI-IA.md` antes da primeira configuração.
+Leia `AGENTS.md` em toda sessão e `INICIE-AQUI-IA.md` antes da primeira configuração.
 
 As skills compatíveis com Claude Code vivem em `.claude/skills/` e são projeções idênticas da fonte canônica `.agents/skills/`.
 

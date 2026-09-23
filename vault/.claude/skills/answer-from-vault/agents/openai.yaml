@@ -1,0 +1,4 @@
+interface:
+  display_name: "Perguntar ao Cérebro"
+  short_description: "Respostas e entregas com a fonte de cada parte"
+  default_prompt: "$answer-from-vault o que o meu cofre sabe sobre este assunto?"
