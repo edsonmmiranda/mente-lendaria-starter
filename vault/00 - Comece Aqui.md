@@ -42,3 +42,7 @@ Esta seção será personalizada pela IA após analisar apenas os arquivos que v
 - Escolha uma nota que importa hoje.
 - Escreva o que você pensa sobre ela.
 - Procure uma conexão com [[Ideias que me Perseguem]] ou [[Projetos em Movimento]].
+
+## Seu cérebro se alimenta sozinho
+
+Livros, páginas salvas e reuniões chegam em [[Fontes/LEIA-ME|Fontes]]. A manutenção diária decide o que entra usando o seu [[Meu Norte]] e conta tudo no [[Registro da Manutenção]].

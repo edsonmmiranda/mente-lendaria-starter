@@ -53,10 +53,46 @@
     "capture-source",
     "connect-notes",
     "build-moc",
-    "review-vault"
+    "review-vault",
+    "maintain-vault",
+    "interview-me",
+    "schedule-maintenance",
+    "answer-from-vault",
+    "calibrate-voice"
   ],
+  "source_folder": "Fontes",
+  "source_ledger": ".segundo-cerebro-kit/source-ledger.json",
+  "maintenance_log": "Registro da Manutenção.md",
+  "preferences": ".segundo-cerebro-kit/preferences.json",
+  "entry_modes": [
+    "automatica",
+    "com-aprovacao"
+  ],
+  "maintenance_contract": {
+    "skill": "maintain-vault",
+    "runs_locally": true,
+    "allowed_operations": [
+      "list",
+      "read",
+      "search",
+      "create",
+      "edit"
+    ],
+    "network": false,
+    "shell": "file-operations-only",
+    "delete_move_rename": false,
+    "sources_read_only": true,
+    "criteria_files_read_only": [
+      "Meu Norte.md",
+      "Perguntas que me Movem.md"
+    ],
+    "cursor": "source-ledger line count, not clock",
+    "maximum_sources_per_run": 10
+  },
   "minimum_personal_notes": 0,
   "target_personal_notes": 8,
   "maximum_personal_notes_first_run": 12,
-  "maximum_source_files_first_run": 12
+  "maximum_source_files_first_run": 12,
+  "voice_card": "Minha Voz.md",
+  "voice_samples_folder": "Fontes/Meus Textos"
 }

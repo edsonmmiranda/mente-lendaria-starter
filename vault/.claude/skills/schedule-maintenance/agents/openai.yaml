@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agendar a Manutenção"
+  short_description: "Ligue a manutenção diária no aplicativo que você usa"
+  default_prompt: "$schedule-maintenance agende a manutenção diária do meu cofre."

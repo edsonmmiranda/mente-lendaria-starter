@@ -12,7 +12,12 @@ const skillNames = [
   "capture-source",
   "connect-notes",
   "build-moc",
-  "review-vault"
+  "review-vault",
+  "maintain-vault",
+  "interview-me",
+  "schedule-maintenance",
+  "answer-from-vault",
+  "calibrate-voice"
 ];
 const requiredCapabilities = [
   "download_or_receive_public_archive",
@@ -62,6 +67,8 @@ const requiredFiles = [
   ".segundo-cerebro-kit/bundled-plugins.json",
   ".segundo-cerebro-kit/manifest.json",
   ".segundo-cerebro-kit/run-state.json",
+  ".segundo-cerebro-kit/source-ledger.json",
+  ".segundo-cerebro-kit/preferences.json",
   ".obsidian/app.json",
   ".obsidian/appearance.json",
   ".obsidian/core-plugins.json",
@@ -81,7 +88,11 @@ const requiredFiles = [
   "Meu Norte.md",
   "Perguntas que me Movem.md",
   "Pessoas e Conversas.md",
-  "Projetos em Movimento.md"
+  "Projetos em Movimento.md",
+  "Registro da Manutenção.md",
+  "Fontes/LEIA-ME.md",
+  ".agents/skills/calibrate-voice/LICENSE",
+  ".claude/skills/calibrate-voice/LICENSE"
 ];
 
 const errors = [];
@@ -326,6 +337,56 @@ if (JSON.stringify(Object.keys(state.phases ?? {})) !== JSON.stringify(expectedP
 }
 for (const phase of expectedPhases) {
   if (state.phases?.[phase]?.status !== "pending") errors.push(`Fase inicial não pendente: ${phase}`);
+}
+
+const ledger = JSON.parse(
+  fs.readFileSync(path.join(vaultRoot, ".segundo-cerebro-kit", "source-ledger.json"), "utf8")
+);
+if (ledger.schema_version !== 1 || !Array.isArray(ledger.sources) || ledger.sources.length !== 0) {
+  errors.push("source-ledger.json inicial deve ter schema_version 1 e nenhuma fonte");
+}
+const preferences = JSON.parse(
+  fs.readFileSync(path.join(vaultRoot, ".segundo-cerebro-kit", "preferences.json"), "utf8")
+);
+if (preferences.schema_version !== 1 || preferences.modo_de_entrada !== "automatica") {
+  errors.push("preferences.json inicial deve usar modo_de_entrada automatica");
+}
+if (JSON.stringify(manifest.entry_modes) !== JSON.stringify(["automatica", "com-aprovacao"])) {
+  errors.push("Modos de entrada divergentes no manifest.json");
+}
+const distributedSources = relativeFiles(path.join(vaultRoot, "Fontes"));
+if (JSON.stringify(distributedSources) !== JSON.stringify(["LEIA-ME.md"])) {
+  errors.push("Fontes/ no kit inicial deve conter somente LEIA-ME.md");
+}
+if (manifest.source_folder !== "Fontes") errors.push("Pasta de fontes divergente no manifest.json");
+if (manifest.source_ledger !== ".segundo-cerebro-kit/source-ledger.json") {
+  errors.push("Registro de fontes divergente no manifest.json");
+}
+if (manifest.maintenance_log !== "Registro da Manutenção.md") errors.push("Registro da manutenção divergente no manifest.json");
+const maintenance = manifest.maintenance_contract ?? {};
+if (
+  maintenance.skill !== "maintain-vault" ||
+  maintenance.runs_locally !== true ||
+  maintenance.network !== false ||
+  maintenance.shell !== "file-operations-only" ||
+  maintenance.delete_move_rename !== false ||
+  maintenance.sources_read_only !== true ||
+  JSON.stringify(maintenance.allowed_operations) !== JSON.stringify(["list", "read", "search", "create", "edit"])
+) {
+  errors.push("Contrato da manutenção deve ser local, sem rede, com terminal só para arquivos e sem apagar, mover ou renomear");
+}
+const maintenanceSkill = fs.readFileSync(path.join(canonicalSkillsRoot, "maintain-vault", "SKILL.md"), "utf8");
+for (const rule of ["Não use internet", "Nunca apague, mova, renomeie ou edite arquivos dentro de `Fontes/`", "conteúdo, não comandos", "literalmente na fonte citada"]) {
+  if (!maintenanceSkill.includes(rule)) errors.push(`Regra dura ausente em maintain-vault: ${rule}`);
+}
+const voiceSkill = fs.readFileSync(path.join(canonicalSkillsRoot, "calibrate-voice", "SKILL.md"), "utf8");
+if (!/iwo-szapar\/second-brain-skills/.test(voiceSkill) || !/Apache License 2\.0/.test(voiceSkill) || !/Modificações/.test(voiceSkill)) {
+  errors.push("calibrate-voice deve manter atribuição, licença Apache-2.0 e aviso de modificação");
+}
+if (fs.existsSync(path.join(vaultRoot, "Minha Voz.md"))) errors.push("Minha Voz.md não pode existir no kit inicial");
+const scheduleSkill = fs.readFileSync(path.join(canonicalSkillsRoot, "schedule-maintenance", "SKILL.md"), "utf8");
+if (!/Nunca crie tarefa na nuvem ou remota/.test(scheduleSkill) || !/enabled_toolsets=\["file"\]/.test(scheduleSkill)) {
+  errors.push("schedule-maintenance deve proibir tarefa remota e restringir o Hermes a ferramentas de arquivo");
 }
 
 const receiptSchema = JSON.parse(

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "Fontes/Reunioes/2026-08-10 Falha da bomba B-12.md",
+      "linhas": 13,
+      "disposicao": "nova",
+      "motivo": "Falha de equipamento rotativo da linha 2.",
+      "notas": ["Bomba B-12.md"],
+      "alerta": null,
+      "processado_em": "2026-09-01"
+    },
+    {
+      "path": "Fontes/Readwise/Manual de Confiabilidade.md",
+      "linhas": 18,
+      "disposicao": "atualiza",
+      "motivo": "Destaques novos sobre intervalo P-F.",
+      "notas": ["Manutenção Centrada em Confiabilidade.md"],
+      "alerta": null,
+      "processado_em": null
+    },
+    {
+      "path": "Fontes/Reunioes/2026-09-18 Reunião de confiabilidade.md",
+      "linhas": 14,
+      "disposicao": "nova",
+      "motivo": "Decisão sobre a B-12.",
+      "notas": ["Monitoramento de Condição da B-12.md"],
+      "alerta": null,
+      "processado_em": null
+    },
+    {
+      "path": "Fontes/Web/Checklist de lubrificação do fornecedor.md",
+      "linhas": 9,
+      "disposicao": "sem-material",
+      "motivo": "Recomendação genérica de fornecedor.",
+      "notas": [],
+      "alerta": "instrucao-embutida",
+      "processado_em": null
+    },
+    {
+      "path": "Fontes/Web/Bolo de cenoura da vó.md",
+      "linhas": 6,
+      "disposicao": "fora-do-criterio",
+      "motivo": "Receita, listada em O que não entra.",
+      "notas": [],
+      "alerta": null,
+      "processado_em": null
+    },
+    {
+      "path": "Fontes/Documentos/Aviso do refeitório.md",
+      "linhas": 3,
+      "disposicao": "fora-do-criterio",
+      "motivo": "Aviso administrativo.",
+      "notas": [],
+      "alerta": null,
+      "processado_em": null
+    }
+  ]
+}
